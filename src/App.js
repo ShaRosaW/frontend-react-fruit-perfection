@@ -11,6 +11,13 @@ function App() {
     = React.useState('');
     const [checkedTerms, toggleCheckedTerms]
     = React.useState(false);
+    const [submitted, setSubmitted]
+        = React.useState(false);
+
+    function sendForm() {
+        console.log(`Het bericht: "${messageValue}" is succesvol verzonden.`);
+        setSubmitted(true);
+    }
 
     return (
     <>
@@ -66,6 +73,7 @@ function App() {
                     onChange={(e) =>
                     setMessageValue(e.target.value)}
                 />
+                {messageValue.length > 20 && <p className="error-message">Dit bericht is te lang!</p>}
                 <label htmlFor="terms-and-conditions">
                     <input
                         type="checkbox"
@@ -78,8 +86,10 @@ function App() {
                 </label>
             </form>
             <button
+                type="submit"
                 disabled={!checkedTerms}
-                type="submit">
+                onClick={sendForm}
+            >
                 Verstuur
             </button>
         </div>
